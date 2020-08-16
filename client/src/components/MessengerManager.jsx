@@ -25,28 +25,28 @@ let body = {
 let podListDivStyle = {
     width: "20%",
     height: "600px",
-    backgroundColor: "#9AB6C9",
+    backgroundColor: "#FCFDFC",
     margin: "auto"
 }
 
 let messengerDivStyle = {
     width: "60%",
     height: "600px",
-    backgroundColor: "#56A4E7",
+    backgroundColor: "#87CA70",
     margin: "auto"
 }
 
 let podUsersDivStyle = {
     width: "20%",
     height: "600px",
-    backgroundColor: "#87CA70",
+    backgroundColor: "#FCFDFC",
     margin: "auto"
 }
 
 let messageHistoryStyle = {
     width: "800px",
     height: "400px",
-    overflow: "scroll"
+    overflow: "auto"
 }
 
 let inputStyle = {
@@ -59,12 +59,17 @@ let buttonStyle = {
     borderWidth: "2px"
 }
 
+let h1Style = {
+    textAlign: "left",
+    paddingLeft: "30px"
+}
+
 class MessengerManager extends React.Component {
     constructor() {
         super()
         this.state = {
             availablePods: [{ name: "5th Grade Math", description: "5th grade math in Spokane, Washington", src: "images/smallplant.png" }, { name: "Algebra I", description: "Home teaching for Algebra I", src: "images/smallplant.png" }, { name: "Seattle, Washington", description: "Local homeschooling ideas for Seattlites", src: "images/smallplant.png" }],
-            currentPodName: "test1",
+            currentPodName: "5th Grade Math",
             currentPodUsers: [{ name: "Mary Jane", src: "images/smallplant.png" }, { name: "John Smith", src: "images/smallplant.png" }, { name: "Robert Williams", src: "images/smallplant.png" }],
             existingMessages: [{ userName: "Judah", src: "images/smallplant.png", messageContent: "Heyoo whaddup peasents", timeStamp: "8/16/2020 9:03 PM" }, { userName: "KV", src: "images/smallplant.png", messageContent: ">:(", timeStamp: "8/16/2020 9:05 PM" }, { userName: "Joshua", src: "images/smallplant.png", messageContent: "no u", timeStamp: "8/16/2020 9:06 PM" }, { userName: "Anushka", src: "images/smallplant.png", messageContent: "henlo", timeStamp: "8/16/2020 9:10 PM" }],
             currentUsername: "Joshua",
@@ -114,10 +119,11 @@ class MessengerManager extends React.Component {
         return (
             <div style={body}>
                 <div style={podListDivStyle}>
+                    <h1 style={h1Style}>Your Pods</h1>
                     {currentPodListItems}
                 </div>
                 <div style={messengerDivStyle}>
-                    <h1>{this.state.currentPodName}</h1>
+                    <h1 style={h1Style} >{this.state.currentPodName}</h1>
                     <div style={messageHistoryStyle}>
                         {currentMessages}
                     </div>
@@ -127,6 +133,7 @@ class MessengerManager extends React.Component {
                     <button style={buttonStyle} onClick={this.sendMessage}>Send</button>
                 </div>
                 <div style={podUsersDivStyle}>
+                <h1 style={h1Style}>People</h1>
                     {currentPodUsersItems}
                 </div>
 
