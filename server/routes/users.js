@@ -3,7 +3,12 @@ const passport = require("passport");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    res.send("This is a users route");
+    try {
+        res.json(req.user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json("Server cannot retrieve user");
+    }
 });
 
 router.get("/login", passport.authenticate("google", { scope: ["profile"] }));
