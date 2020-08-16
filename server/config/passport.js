@@ -48,7 +48,7 @@ module.exports = passport => {
         const passportsRef = db.collection('passports');
         const snapshot = await passportsRef.where('googleID', '==', profile.id).get();
         if (!snapshot.empty) {
-            id = snapshot.data.googleID;
+            id = snapshot.data().googleID;
         }
 
         return callback(null, id);
