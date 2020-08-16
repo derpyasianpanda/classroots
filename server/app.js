@@ -34,6 +34,8 @@ app.use(express.static("../client/build"));
 
 // Routes
 app.use("/api/users", require("./routes/users"));
+app.use("/api/pods/messages", require("./routes/pods-messages"));
+app.use("/api/pods/resources", require("./routes/pods-resources"));
 app.use("/api/pods", require("./routes/pods"));
 
 // Passport middleware
