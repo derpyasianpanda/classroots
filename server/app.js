@@ -5,7 +5,9 @@ const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
 const FirestoreStore = require("firestore-store")(session);
-const db = require("./config/firebase.js");
+
+const db = require("./config/firebase");
+const configurePassport = require("./config/passport");
 
 const PORT = process.env.PORT || 8000;
 
@@ -22,6 +24,7 @@ app.use(
         saveUninitialized: true
     })
 );
+configurePassport(passport);
 
 // Request Body Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +35,10 @@ app.use(express.static("../client/build"));
 // Routes
 app.use("/api/users", require("./routes/users"));
 app.use("/api/pods", require("./routes/pods"));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Redirects all other requests to main page
 app.get("*", (req, res) => {
