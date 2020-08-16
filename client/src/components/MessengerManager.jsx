@@ -19,7 +19,8 @@ import InputGroup from 'react-bootstrap/InputGroup'
 let body = {
     display: "flex",
     flexWrap: "wrap",
-    margin: "auto"
+    margin: "auto",
+    marginTop: "20px"
 }
 
 let podListDivStyle = {
@@ -62,13 +63,15 @@ let buttonStyle = {
 
 let h1Style = {
     textAlign: "left",
-    paddingLeft: "30px"
+    paddingLeft: "30px",
+    color: "#FCFDFC"
 }
 
 let h1Style2 = {
     textAlign: "left",
     paddingLeft: "30px",
-    backgroundColor: "#9AB6C9"
+    backgroundColor: "#9AB6C9",
+    color: "#FCFDFC"
 }
 
 class MessengerManager extends React.Component {

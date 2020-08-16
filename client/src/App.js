@@ -25,9 +25,11 @@ function App() {
               <LandingPage />
             </Route>
             <Route path="/message">
+              <MainNavbar />
               <PodPage />
             </Route>
             <Route path="/browse">
+              <MainNavbar />
               <PodBrowsePage />
             </Route>
           </ContextProvider>

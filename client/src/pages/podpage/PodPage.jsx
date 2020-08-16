@@ -14,14 +14,7 @@ class PodPage extends React.Component {
         return (
             <div>
                 <div>
-                    <div id="headerSection">
-                        <h1>Pod Page</h1>
-                        <p>hello</p>
-                    </div>
-
-
                     <MessengerManager />
-
                 </div>
 
             </div>
