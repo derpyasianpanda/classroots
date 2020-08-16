@@ -1,8 +1,13 @@
 import React from 'react';
 import './LandingPage.css';
+import { Context } from "../../Context";
+import { Link } from "react-router-dom"
 
 class LandingPage extends React.Component {
+    static contextType = Context;
     render() {
+        let { profile, setProfile } = this.context;
+        console.log(profile);
         return (
             <div id="body">
 
@@ -10,6 +15,8 @@ class LandingPage extends React.Component {
                     <img src="images/classroots.gif" className="logo" />
                     <div id="mainTitle">
                         <p>A grassroots approach to at home learning</p>
+                        <button onClick={() => setProfile("hi")}>test</button>
+                        <Link to="/message">test</Link>
                     </div>
 
                     <div id="loginsignup">
