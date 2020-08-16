@@ -127,8 +127,15 @@ router.get("/get_pods", async (req, res) => {
         const snapshot = await db.collection('user')
             .where('user_id', '==', user_id)
             .get();
+        let pod_ids = [];
+        snapshot.forEach(snap => pod_ids = snap.data().pods);
         let pods = [];
-        snapshot.forEach(snap => pods = snap.data().pods);
+        pod_ids.forEach(async function(pod_id) {
+            const pod = await db.collection('pod')
+                .where('pod_id', '==', pod_id)
+                .get();
+            pods.push(pod);
+        });
         res.json({
             status: "Pods found",
             pods: pods
