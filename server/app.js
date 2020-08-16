@@ -21,10 +21,14 @@ app.use(
         }),
         secret: "test_secret",
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: false
     })
 );
 configurePassport(passport);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Request Body Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -37,10 +41,6 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/pods/messages", require("./routes/pods-messages"));
 app.use("/api/pods/resources", require("./routes/pods-resources"));
 app.use("/api/pods", require("./routes/pods"));
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Redirects all other requests to main page
 app.get("*", (req, res) => {

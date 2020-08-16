@@ -7,50 +7,39 @@ module.exports = passport => {
         new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "/users/login/callback"
+            callbackURL: "/api/users/login/callback"
         },
         async (accessToken, refreshToken, profile, callback) => {
-            // Implement User creation here
-            // profile contains all the information
-            const newUser = {
+            const userInfo = {
                 googleID: profile.id,
                 displayName: profile.displayName,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
                 image: profile.photos[0].value
             };
-            
-            const passportsRef = db.collection('passports');
-            const snapshot = await passportsRef.where('googleID', '==', profile.id).get();
-            if (snapshot.empty) {
-                
-                // Add user
-                await passportsRef.doc(profile.id).set({
-                    'googleID': profile.id,
-                    'displayName': profile.displayName,
-                    'firstName': profile.firstName,
-                    'lastname': profile.lastName,
-                    'image' : profile.photos[0].value
-                })
-            }
+            console.log(userInfo)
 
-            // return that user from the database in the callback
-            return callback(null, newUser);
+            const usersRef = db.collection("users");
+            let snapshot = await usersRef.where("googleID", "==", userInfo.googleID).get();
+            if (snapshot.empty) {
+                await usersRef.doc(profile.id).set(userInfo);
+                snapshot = await usersRef.where("googleID", "==", userInfo.googleID).get();
+            }
+            let user;
+            snapshot.forEach(snap => {
+                user = snap.data();
+            });
+            return callback(null, user);
         }
     ));
 
-    passport.serializeUser((user, done) => done(null, user.id));
+    passport.serializeUser((user, done) => {
+        done(null, user.googleID);
+    });
 
-    passport.deserializeUser((id, callback) => {
-  
-        let id = null;
-
-        const passportsRef = db.collection('passports');
-        const snapshot = await passportsRef.where('googleID', '==', profile.id).get();
-        if (!snapshot.empty) {
-            id = snapshot.data().googleID;
-        }
-
-        return callback(null, id);
+    passport.deserializeUser(async (id, callback) => {
+        const usersRef = db.collection("users");
+        const user = await usersRef.where("googleID", "==", id).get();
+        return callback(null, user);
     });
 };
