@@ -10,8 +10,11 @@ class PodPage extends React.Component {
         return (
             <div>
                 <div>
-                    <h1>Pod Page</h1>
-                    <p>hello</p>
+                    <div id="headerSection">
+                        <h1>Pod Page</h1>
+                        <p>hello</p>
+                    </div>
+
 
                     <MessengerManager />
 
