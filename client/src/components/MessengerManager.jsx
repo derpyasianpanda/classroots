@@ -33,7 +33,8 @@ let messengerDivStyle = {
     width: "60%",
     height: "600px",
     backgroundColor: "#87CA70",
-    margin: "auto"
+    margin: "auto",
+    borderRadius: "20px"
 }
 
 let podUsersDivStyle = {
@@ -62,6 +63,12 @@ let buttonStyle = {
 let h1Style = {
     textAlign: "left",
     paddingLeft: "30px"
+}
+
+let h1Style2 = {
+    textAlign: "left",
+    paddingLeft: "30px",
+    backgroundColor: "#9AB6C9"
 }
 
 class MessengerManager extends React.Component {
@@ -119,7 +126,7 @@ class MessengerManager extends React.Component {
         return (
             <div style={body}>
                 <div style={podListDivStyle}>
-                    <h1 style={h1Style}>Your Pods</h1>
+                    <h1 style={h1Style2}>Your Pods</h1>
                     {currentPodListItems}
                 </div>
                 <div style={messengerDivStyle}>
@@ -133,7 +140,7 @@ class MessengerManager extends React.Component {
                     <button style={buttonStyle} onClick={this.sendMessage}>Send</button>
                 </div>
                 <div style={podUsersDivStyle}>
-                <h1 style={h1Style}>People</h1>
+                <h1 style={h1Style2}>People</h1>
                     {currentPodUsersItems}
                 </div>
 
