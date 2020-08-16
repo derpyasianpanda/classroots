@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/derpyasianpanda/classroots/issues"
   },
-  "homepage": "https://github.com/derpyasianpanda/classroots#readme"
+  "homepage": "https://github.com/derpyasianpanda/classroots#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
