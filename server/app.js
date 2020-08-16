@@ -1,6 +1,8 @@
 // Dependencies
+const path = require("path");
 const dotenv = require("dotenv");
 const express = require("express");
+const db = require("./config/firebase.js");
 
 const PORT = process.env.PORT || 8000;
 
@@ -24,4 +26,4 @@ app.get("*", (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, console.log(`Server running on port ${PORT}`));
+app.listen(PORT, console.log(`Server running on port ${PORT} ${res}`));
