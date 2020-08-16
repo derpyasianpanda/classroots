@@ -2,6 +2,9 @@
 const path = require("path");
 const dotenv = require("dotenv");
 const express = require("express");
+const passport = require("passport");
+const session = require("express-session");
+const FirestoreStore = require("firestore-store")(session);
 const db = require("./config/firebase.js");
 
 const PORT = process.env.PORT || 8000;
@@ -9,6 +12,16 @@ const PORT = process.env.PORT || 8000;
 // Configuration
 dotenv.config({ path: "./config/config.env" });
 const app = express();
+app.use(
+    session({
+        store: new FirestoreStore({
+            database: db
+        }),
+        secret: "test_secret",
+        resave: false,
+        saveUninitialized: true
+    })
+);
 
 // Request Body Middleware
 app.use(express.urlencoded({ extended: false }));
