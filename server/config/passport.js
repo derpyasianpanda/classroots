@@ -19,6 +19,22 @@ module.exports = passport => {
                 lastName: profile.name.familyName,
                 image: profile.photos[0].value
             };
+            
+            const passportsRef = db.collection('passports');
+            const snapshot = await passportsRef.where('googleID', '==', profile.id).get();
+            if (snapshot.empty) {
+                
+                // Add user
+                await passportsRef.doc(profile.id).set({
+                    'googleID': profile.id,
+                    'displayName': profile.displayName,
+                    'firstName': profile.firstName,
+                    'lastname': profile.lastName,
+                    'image' : profile.photos[0].value
+                })
+            }
+
+            // return that user from the database in the callback
             return callback(null, newUser);
         }
     ));
@@ -26,7 +42,15 @@ module.exports = passport => {
     passport.serializeUser((user, done) => done(null, user.id));
 
     passport.deserializeUser((id, callback) => {
-        // TODO: Find how to query Firebase
+  
+        let id = null;
+
+        const passportsRef = db.collection('passports');
+        const snapshot = await passportsRef.where('googleID', '==', profile.id).get();
+        if (!snapshot.empty) {
+            id = snapshot.data().googleID;
+        }
+
         return callback(null, id);
     });
 };
