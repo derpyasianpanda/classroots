@@ -13,7 +13,7 @@ class LandingPage extends React.Component {
                 <section id="topSection">
                     <img src="images/classroots.gif" className="logo" />
                     <div id="mainTitle">
-                        <p>A grassroots approach to at home learning</p>
+                        <p>A grassroots approach to home learning</p>
                         {profile ? <p>Welcome {profile.displayName}</p> :
                         // Needs to be an anchor tag b/c the login directs outside of react
                         <a href="/api/users/login">Login!</a>}
@@ -32,11 +32,11 @@ class LandingPage extends React.Component {
                 <section className="contentSection">
                     <img src="images/smallplant.png" className="smallImage" />
                     <div className="formatBody">
-                        <h1>grassroots + classroom</h1>
+                        <h1>Grassroots + Classroom</h1>
                         <p><i>Classroots</i> allows parents of homeschooled or hybrid-schooled students
                         K-6 to connect to discuss curriculum and education opportunities for
                         their children. They can connect via shared locations, interests, or
-                        educational styles. For example, one such community might be gifted students from WA state.</p>
+                        educational styles. For example, one such community might be third grade students from WA state.</p>
                     </div>
 
                 </section>
