@@ -5,7 +5,7 @@
   "main": "./server/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd server/ && node app.js",
+    "start": "cd ./server/ && node app.js",
     "dev": "cd server/ && env DEV=true nodemon app",
     "react-start": "cd client/ && npm start",
     "build": "cd client/ && npm install && npm run build",
