@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const admin = require('firebase-admin');
 const db = require("../config/firebase");
 
-router.get("/", async (req, res) => {
-    res.send("This is a pods route");
-});
-
-router.post("/create_pod", async (req, res) => {
+router.post("/", async (req, res) => {
     let { name, subject, description, location, grade, tags } = req.query;
     if (!name || !subject) {
         return res.status(400).json({ status: "Missing query parameters" })
@@ -31,24 +28,26 @@ router.post("/create_pod", async (req, res) => {
     }
 });
 
-router.get("/search_pods", async (req, res) => {
+router.get("/", async (req, res) => {
     let { grade, location, tags } = req.query;
     if (!grade || !location) {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const pods = await db.collection('pod')
+        let snapshot = db.collection('pod')
             .where('grade', '==', grade)
-            .where('location', 'in', [location, null])
-            .where('tags', 'array-contains-any', tags)
-            .get();
-        if (pods.empty) {
+            .where('location', '==', location)
+        snapshot = tags ? snapshot.where("tags", "array-contains", tags) : snapshot;
+        snapshot = await snapshot.get();
+        if (snapshot.empty) {
             res.json({
                 status: "No Pods found",
                 pods: []
             });
         }
         else {
+            let pods = [];
+            snapshot.forEach(snap => pods.push(snap.data()));
             res.json({
                 status: "Pods found",
                 pods: pods
@@ -60,9 +59,9 @@ router.get("/search_pods", async (req, res) => {
     }
 });
 
-router.post("/add_user", async (req, res) => {
+router.post("/users", async (req, res) => {
     let { pod_id, user_id } = req.query;
-    if (!grade || !location) {
+    if (!pod_id || !user_id) {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
@@ -79,15 +78,17 @@ router.post("/add_user", async (req, res) => {
     }
 });
 
-router.get("/get_users", async (req, res) => {
-    let { pod_id, user_id } = req.query;
-    if (!grade || !location) {
+router.get("/users", async (req, res) => {
+    let { pod_id  } = req.query;
+    if (!pod_id) {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const users = await db.collection('user')
+        const snapshot = await db.collection('user')
             .where('pods', 'array-contains', pod_id)
             .get();
+        let users = [];
+        snapshot.forEach(snap => users.push(snap.data()));
         res.json({
             status: "Users found",
             users: users
@@ -98,7 +99,7 @@ router.get("/get_users", async (req, res) => {
     }
 });
 
-router.put("/add_tag", async (req, res) => {
+router.put("/tag", async (req, res) => {
     let { pod_id, tag } = req.query;
     if (!pod_id || !tag) {
         return res.status(400).json({ status: "Missing query parameters" })

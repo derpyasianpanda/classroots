@@ -18,7 +18,7 @@ module.exports = passport => {
                 image: profile.photos[0].value
             };
 
-            const usersRef = db.collection("users");
+            const usersRef = db.collection("user");
             let snapshot = await usersRef.where("googleID", "==", userInfo.googleID).get();
             if (snapshot.empty) {
                 await usersRef.doc(profile.id).set(userInfo);
@@ -37,7 +37,7 @@ module.exports = passport => {
     });
 
     passport.deserializeUser(async (id, callback) => {
-        const usersRef = db.collection("users");
+        const usersRef = db.collection("user");
         const snapshot = await usersRef.where("googleID", "==", id).get();
         let user;
         snapshot.forEach(snap => {

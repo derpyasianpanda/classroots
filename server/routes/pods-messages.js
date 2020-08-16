@@ -2,11 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/firebase");
 
-router.get("/", async (req, res) => {
-    res.send("This is a pods/messages route");
-});
-
-router.post("/send", async (req, res) => {
+router.post("/", async (req, res) => {
     let { user_id, pod_id, message } = req.query;
     if (!user_id || !pod_id || !message) {
         return res.status(400).json({ status: "Missing query parameters" })
@@ -28,22 +24,24 @@ router.post("/send", async (req, res) => {
     }
 });
 
-router.get("/get", async (req, res) => {
+router.get("/", async (req, res) => {
     let { pod_id } = req.query;
     if (!pod_id) {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const messages = await db.collection('message')
+        const snapshot = await db.collection('message')
             .where('pod_id', '==', pod_id)
             .get();
-        if (messages.empty) {
+        if (snapshot.empty) {
             res.json({
                 status: "No Messages found",
                 messages: []
             });
         }
         else {
+            const messages = [];
+            snapshot.forEach(snap => messages.push(snap.data()));
             res.json({
                 status: "Messages found",
                 messages: messages
