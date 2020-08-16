@@ -31,7 +31,7 @@ router.post("/create_pod", async (req, res) => {
     }
 });
 
-router.post("/search_pods", async (req, res) => {
+router.get("/search_pods", async (req, res) => {
     let { grade, location, tags } = req.query;
     if (!grade || !location) {
         return res.status(400).json({ status: "Missing query parameters" })
@@ -79,7 +79,7 @@ router.post("/add_user", async (req, res) => {
     }
 });
 
-router.post("/get_users", async (req, res) => {
+router.get("/get_users", async (req, res) => {
     let { pod_id, user_id } = req.query;
     if (!grade || !location) {
         return res.status(400).json({ status: "Missing query parameters" })
@@ -98,7 +98,7 @@ router.post("/get_users", async (req, res) => {
     }
 });
 
-router.post("/add_tag", async (req, res) => {
+router.put("/add_tag", async (req, res) => {
     let { pod_id, tag } = req.query;
     if (!pod_id || !tag) {
         return res.status(400).json({ status: "Missing query parameters" })
