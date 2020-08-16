@@ -118,4 +118,25 @@ router.put("/tag", async (req, res) => {
     }
 });
 
+router.get("/get_pods", async (req, res) => {
+    let { user_id } = req.query;
+    if (!user_id) {
+        return res.status(400).json({ status: "Missing query parameters" })
+    }
+    try {
+        const snapshot = await db.collection('user')
+            .where('user_id', '==', user_id)
+            .get();
+        let pods = [];
+        snapshot.forEach(snap => pods = snap.data().pods);
+        res.json({
+            status: "Pods found",
+            pods: pods
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
 module.exports = router;
