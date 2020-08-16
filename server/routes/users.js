@@ -4,16 +4,8 @@ const router = express.Router();
 const db = require("../config/firebase");
 
 router.get("/", async (req, res) => {
-    try {
-        res.json(req.user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json("Server cannot retrieve user");
-    }
-});
-
-router.get("/:id", async (req, res) => {
     const { id } = req.params;
+    console.log(id)
     if (!id) {
         return res.json(req.user);
     }
