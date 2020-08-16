@@ -8,76 +8,114 @@ class PodBrowsePage extends React.Component {
     constructor() {
         super()
         this.state = {
-            availablePods: [{ id: 1, isJoined: false, name: "5th Grade Math", subject: "Mathematics", description: "5th grade math in Spokane, Washington", memberCount: 52, src: "images/smallplant.png" }, { id: 2, isJoined: false, name: "Algebra I", subject: "Mathematics", description: "Home teaching for Algebra I", memberCount: 61, src: "images/smallplant.png" }, { id: 3, isJoined: false, name: "Seattle, Washington", subject: "Variety", description: "Local homeschooling ideas for Seattlites", memberCount: 11, src: "images/smallplant.png" }],
+            availablePods: [
+                { id: 1, isJoined: true, name: "5th Grade Math", subject: "Mathematics", description: "5th grade math in Spokane, Washington", tags: ["5th Grade", "Spokane", "Popular", "Math"], memberCount: 52, src: "images/smallplant.png" },
+                { id: 2, isJoined: false, name: "Algebra I", subject: "Mathematics", description: "Home teaching for Algebra I", tags: ["Algebra", "National", "Popular", "Math"], memberCount: 61, src: "images/smallplant.png" },
+                { id: 3, isJoined: false, name: "Seattle, Washington", subject: "Variety", description: "Local homeschooling ideas for Seattlites", tags: ["K-6", "National", "Popular"], memberCount: 11, src: "images/smallplant.png" }],
+            joinedPodIDs: [1]
         }
 
         this.handleJoinPod = this.handleJoinPod.bind(this);
     }
 
+    // Handles joining and leaving pods.
+    // Should only be called to handle onclick events for available pods
+    // so we can safely assume the id does exist
     handleJoinPod(podID) {
-        let pod = this.doesPodArrayContainID(podID, this.state.availablePods);
-
-        // If we found a matching pod ID, add it to the joined pods.
-        if (pod) {
-            this.setState(
-                {
-                    joinedPods: [...this.state.joinedPods, pod]
-                }
-            );
-        }
-    }
-
-    isEmpty(obj) {
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key))
-                return false;
-        }
-        return true;
-    }
-
-    // Checks an array of objects for their id field
-    // and returns the object if it finds a matching id
-    // or null otherwise
-    doesPodArrayContainID(podID, podArray) {
-        let pod = {};
-        for (let i = 0; i < podArray.length; i++) {
-            if (podArray[i].id == podID) {
-                pod = podArray[i];
+        console.log(this.state.availablePods);
+        let podIndex = 0;
+        for (let i = 0; i < this.state.availablePods.length; i++) {
+            if (this.state.availablePods[i].id == podID) {
+                podIndex = i;
             }
         }
 
-        if (this.isEmpty(pod)) {
-            return null;
+        const newUpdatedPods = [...this.state.availablePods];
+        let updatedPod = Object.assign({}, this.state.availablePods[podIndex]);
+        updatedPod.isJoined = !updatedPod.isJoined
+        newUpdatedPods[podIndex] = updatedPod
+
+        let updatedJoinedPodIDs = [...this.state.joinedPodIDs];
+        if (updatedPod.isJoined) {
+            console.log("added");
+            updatedJoinedPodIDs.push(newUpdatedPods[podIndex].id);
+        } else {
+            console.log("took away");
+            updatedJoinedPodIDs = this.removeFromArray(updatedPod.id, updatedJoinedPodIDs);
         }
-        return pod;
+
+        console.log(updatedJoinedPodIDs);
+        this.setState(state => {
+            return {
+                availablePods: newUpdatedPods,
+                joinedPodIDs: updatedJoinedPodIDs
+            };
+        });
+    }
+
+    removeFromArray(x, arr) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] == x) {
+                arr.splice(i, 1);
+            }
+        }
+        return arr;
     }
 
     render() {
-        const podTableItems = this.state.availablePods.map(item => <PodBrowseRowItem name={item.name} subject={item.subject} description={item.description} memberCount={item.memberCount} handleOnClick={this.handleJoinPod} />);
-        const joinedPods = this.state.joinedPods.map(item => <PodBrowseRowItem name={item.name} subject={item.subject} description={item.description} memberCount={item.memberCount} handleOnClick={this.handleJoinPod} />);
+        const unjoinedPodTableItems = this.state.availablePods.map(item => {
+            if (!item.isJoined) {
+                return <PodBrowseRowItem id={item.id} name={item.name} subject={item.subject} description={item.description} tags={item.tags} memberCount={item.memberCount} isJoined={item.isJoined} src={item.src} onclick={this.handleJoinPod} />;
+            }
+        });
+
+        const joinedPodTableItems = this.state.availablePods.map(item => {
+            if (item.isJoined) {
+                return <PodBrowseRowItem id={item.id} name={item.name} subject={item.subject} description={item.description} tags={item.tags} memberCount={item.memberCount} isJoined={item.isJoined} src={item.src} onclick={this.handleJoinPod} />;
+            }
+        });
+
+        let podBrowseSection = {
+            width: "90%",
+            margin: "auto",
+            marginTop: "50px",
+            marginBottom: "100px"
+        }
 
         return (
             <div>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Subject</th>
-                        <th>Description</th>
-                        <th>Members</th>
-                    </tr>
-                    {podTableItems}
-                </table>
+                <section style={podBrowseSection}>
+                    <h1>Your Pods</h1>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Description</th>
+                            <th>Tags</th>
+                            <th>Members</th>
+                            <th></th>
+                        </tr>
+                        {joinedPodTableItems}
+                    </table>
+                </section>
 
-                <h1>Joined Pods</h1>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Subject</th>
-                        <th>Description</th>
-                        <th>Members</th>
-                    </tr>
-                    {joinedPods}
-                </table>
+                <section style={podBrowseSection}>
+                    <h1>Available Pods</h1>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Description</th>
+                            <th>Tags</th>
+                            <th>Members</th>
+                            <th></th>
+                        </tr>
+                        {unjoinedPodTableItems}
+                    </table>
+                </section>
+
             </div>
         );
     }

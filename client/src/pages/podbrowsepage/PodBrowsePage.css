@@ -4,3 +4,16 @@ th, td {
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
 }
+
+th {
+    background-color: #87CA70;
+    color: #332633;
+    border-color: #87CA70;
+}
+
+table {
+    margin: auto;
+    width: 100%;
+    border-collapse:collapse
+}
+
