@@ -28,7 +28,8 @@
     "firebase-admin": "^9.1.0",
     "firestore-store": "^2.0.1",
     "passport": "^0.4.1",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "reactstrap": "^8.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
