@@ -23,9 +23,8 @@ router.get("/:id", async (req, res) => {
             .get();
         let user = [];
         snapshot.forEach(snap => user.push(snap.data()));
-        console.log(user)
         res.json({
-            status: "Users found",
+            status: user.length > 0 ? "Users found" : "No users :(",
             user: user[0]
         });
     } catch (error) {
