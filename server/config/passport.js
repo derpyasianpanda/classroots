@@ -42,10 +42,15 @@ module.exports = passport => {
     passport.serializeUser((user, done) => done(null, user.id));
 
     passport.deserializeUser((id, callback) => {
-        // TODO: Find how to query Firebase
+  
+        let id = null;
 
-        // getting user by id
-        // use google ID for id
+        const passportsRef = db.collection('passports');
+        const snapshot = await passportsRef.where('googleID', '==', profile.id).get();
+        if (!snapshot.empty) {
+            id = snapshot.data.googleID;
+        }
+
         return callback(null, id);
     });
 };
