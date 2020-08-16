@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
     if (!id) {
-        return res.status(400).json({ status: "Missing query parameters" });
+        return res.json(req.user);
     }
     try {
         const snapshot = await db.collection('user')
