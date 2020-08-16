@@ -15,7 +15,7 @@ router.post("/add", async (req, res) => {
         data = {
             pod_id: pod_id,
             contents: content,
-            timestamp: Date.now();
+            timestamp: Date.now()
         }
         await db.collection('resource').add(data);
         res.json({

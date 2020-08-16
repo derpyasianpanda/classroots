@@ -16,7 +16,7 @@ router.post("/send", async (req, res) => {
             pod_id: pod_id,
             user_id: user_id,
             contents: message,
-            timestamp: Date.now();
+            timestamp: Date.now()
         }
         await db.collection('message').add(data);
         res.json({
