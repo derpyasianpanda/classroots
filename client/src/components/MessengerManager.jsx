@@ -70,7 +70,7 @@ class MessengerManager extends React.Component {
         this.state = {
             availablePods: [{ name: "5th Grade Math", description: "5th grade math in Spokane, Washington", src: "images/smallplant.png" }, { name: "Algebra I", description: "Home teaching for Algebra I", src: "images/smallplant.png" }, { name: "Seattle, Washington", description: "Local homeschooling ideas for Seattlites", src: "images/smallplant.png" }],
             currentPodName: "5th Grade Math",
-            currentPodUsers: [{ name: "Mary Jane", src: "images/smallplant.png" }, { name: "John Smith", src: "images/smallplant.png" }, { name: "Robert Williams", src: "images/smallplant.png" }],
+            currentPodUsers: [{ name: "Judah Wiley", src: "images/smallplant.png" }, { name: "Anushka Narvekar", src: "images/smallplant.png" }, { name: "Joshua Maza", src: "images/smallplant.png" }],
             existingMessages: [{ userName: "Judah", src: "images/smallplant.png", messageContent: "Heyoo whaddup peasents", timeStamp: "8/16/2020 9:03 PM" }, { userName: "KV", src: "images/smallplant.png", messageContent: ">:(", timeStamp: "8/16/2020 9:05 PM" }, { userName: "Joshua", src: "images/smallplant.png", messageContent: "no u", timeStamp: "8/16/2020 9:06 PM" }, { userName: "Anushka", src: "images/smallplant.png", messageContent: "henlo", timeStamp: "8/16/2020 9:10 PM" }],
             currentUsername: "Joshua",
             currentlyTypedMessage: ""
