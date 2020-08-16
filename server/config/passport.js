@@ -17,7 +17,6 @@ module.exports = passport => {
                 lastName: profile.name.familyName,
                 image: profile.photos[0].value
             };
-            console.log(userInfo)
 
             const usersRef = db.collection("users");
             let snapshot = await usersRef.where("googleID", "==", userInfo.googleID).get();
@@ -39,7 +38,11 @@ module.exports = passport => {
 
     passport.deserializeUser(async (id, callback) => {
         const usersRef = db.collection("users");
-        const user = await usersRef.where("googleID", "==", id).get();
+        const snapshot = await usersRef.where("googleID", "==", id).get();
+        let user;
+        snapshot.forEach(snap => {
+            user = snap.data();
+        });
         return callback(null, user);
     });
 };

@@ -6,8 +6,7 @@ import { Link } from "react-router-dom"
 class LandingPage extends React.Component {
     static contextType = Context;
     render() {
-        let { profile, setProfile } = this.context;
-        console.log(profile);
+        let { profile } = this.context;
         return (
             <div id="body">
 
@@ -15,8 +14,11 @@ class LandingPage extends React.Component {
                     <img src="images/classroots.gif" className="logo" />
                     <div id="mainTitle">
                         <p>A grassroots approach to at home learning</p>
-                        <button onClick={() => setProfile("hi")}>test</button>
-                        <Link to="/message">test</Link>
+                        {profile ? <p>Welcome {profile.displayName}</p> :
+                        // Needs to be an anchor tag b/c the login directs outside of react
+                        <a href="/api/users/login">Login!</a>}
+                        <br/>
+                        <Link to="/message">Go to Messages</Link>
                     </div>
 
                     <div id="loginsignup">

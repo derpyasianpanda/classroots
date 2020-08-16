@@ -8,7 +8,8 @@
     "start": "cd server/ && node app.js",
     "dev": "cd server/ && env DEV=true nodemon app",
     "react-start": "cd client/ && npm start",
-    "build": "cd client/ && npm install && npm run build"
+    "build": "cd client/ && npm install && npm run build",
+    "qbuild": "cd client/ && npm run build"
   },
   "repository": {
     "type": "git",
