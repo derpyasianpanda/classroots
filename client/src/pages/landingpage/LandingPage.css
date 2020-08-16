@@ -8,15 +8,12 @@
     padding-top: 100px;
     padding-bottom: 100px;
     background-color: #87CA70;
-    display: flex;
-    flex-wrap: wrap;
 }
 
 #mainTitle {
     width: 80%;
     margin: auto;
     display: block;
-    width: 400px;
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1; 
     animation-fill-mode: forwards; 
@@ -29,17 +26,21 @@
     text-align: left;
 }
 
+#mainTitle logo {
+    width: 50%;
+    height: auto;
+}
+
 #mainTitle p, span {
     font-style: italic;
     color: #332633;
     font-size: 28px;
-    text-align: left;
+    text-align: center;
     font-family: 'Oswald', sans-serif;
 }
 
 #loginsignup {
     width: 400px;
-    display: inline;
     margin: auto;
     animation: fadeInAnimation ease 3s;
     animation-iteration-count: 1; 
@@ -78,8 +79,8 @@ button {
 }
 
 .contentSection {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background-color: #9AB6C9;
     display: flex;
     flex-wrap: wrap;

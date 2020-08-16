@@ -7,14 +7,15 @@ class LandingPage extends React.Component {
             <div id="body">
 
                 <section id="topSection">
-
+                    <img src="images/classroots.gif" className="logo" />
                     <div id="mainTitle">
-                        <h1>Classroots</h1>
-                        <p>a grassroots approach to at home learning</p>
+                        <p>A grassroots approach to at home learning</p>
                     </div>
+
                     <div id="loginsignup">
                         <button>sign up</button>
                         <button>log in</button>
+                        <p>Forgot your password? Click <a>here</a></p>
                     </div>
                 </section>
 
