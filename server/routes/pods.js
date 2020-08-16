@@ -68,10 +68,48 @@ router.post("/add_user", async (req, res) => {
     try {
         const userRef = db.collection('user').doc(user_id);
         await userRef.update({
-          pods: admin.firestore.FieldValue.arrayUnion(pod_id)
+            pods: admin.firestore.FieldValue.arrayUnion(pod_id)
         });
         res.json({
             status: "Added User to Pod"
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
+router.post("/get_users", async (req, res) => {
+    let { pod_id, user_id } = req.query;
+    if (!grade || !location) {
+        return res.status(400).json({ status: "Missing query parameters" })
+    }
+    try {
+        const users = await db.collection('user')
+            .where('pods', 'array-contains', pod_id)
+            .get();
+        res.json({
+            status: "Users found",
+            users: users
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
+router.post("/add_tag", async (req, res) => {
+    let { pod_id, tag } = req.query;
+    if (!pod_id || !tag) {
+        return res.status(400).json({ status: "Missing query parameters" })
+    }
+    try {
+        const podRef = db.collection('pod').doc(pod_id);
+        await podRef.update({
+            tags: admin.firestore.FieldValue.arrayUnion(tag)
+        });
+        res.json({
+            status: "Added Tag to Pod"
         });
     } catch (error) {
         console.error(error);
