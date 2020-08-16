@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ContextProvider from "./Context";
 
 // React Router
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -19,17 +20,17 @@ function App() {
     <div className="App">
       <Router>
         <main>
-
-          <Route path="/" exact>
-            <LandingPage />
-          </Route>
-          <Route path="/message">
-            <PodPage />
-          </Route>
-          <Route path="/browse">
-            <PodBrowsePage />
-          </Route>
-
+          <ContextProvider>
+            <Route path="/" exact>
+              <LandingPage />
+            </Route>
+            <Route path="/message">
+              <PodPage />
+            </Route>
+            <Route path="/browse">
+              <PodBrowsePage />
+            </Route>
+          </ContextProvider>
         </main>
       </Router>
     </div>
