@@ -6,7 +6,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // Pages
-//import LandingPage from "./pages";
+import LandingPage from "./pages/landingpage/LandingPage";
+import LoginPage from "./pages/loginpage/LoginPage";
 
 function App() {
   return (
@@ -20,8 +21,12 @@ function App() {
             </ul>
           </nav>
 
-          <Route path="/" exact> <h1>LANDING</h1> </Route>
-          <Route path="/login"> <h1>LOGIN</h1> </Route>
+          <Route path="/" exact>
+            <LandingPage /> 
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
 
         </main>
       </Router>
