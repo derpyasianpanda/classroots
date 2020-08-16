@@ -11,19 +11,19 @@ import MainNavbar from "./components/MainNavbar";
 // Pages
 import LandingPage from "./pages/landingpage/LandingPage";
 import LoginPage from "./pages/loginpage/LoginPage";
+import PodPage from "./pages/podpage/PodPage";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <main>
-          <MainNavbar />
 
           <Route path="/" exact>
-            <LandingPage /> 
+            <PodPage />
           </Route>
           <Route path="/login">
-            <LoginPage />
+            <LandingPage />
           </Route>
 
         </main>
