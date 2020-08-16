@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const db = require("../config/firebase");
 
 router.get("/", async (req, res) => {
     res.send("This is a pods/messages route");

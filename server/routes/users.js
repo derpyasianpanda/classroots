@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
+const db = require("../config/firebase");
 
 router.get("/", async (req, res) => {
     try {
