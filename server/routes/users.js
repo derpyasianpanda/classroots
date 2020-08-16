@@ -12,6 +12,28 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ status: "Missing query parameters" });
+    }
+    try {
+        const snapshot = await db.collection('user')
+            .where('googleID', '==', id)
+            .get();
+        let user = [];
+        snapshot.forEach(snap => user.push(snap.data()));
+        console.log(user)
+        res.json({
+            status: "Users found",
+            user: user[0]
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "Server could not process the request"});
+    }
+});
+
 router.get("/login", passport.authenticate("google", { scope: ["profile"] }));
 
 router.get("/login/callback",
@@ -24,7 +46,6 @@ router.get("/login/callback",
 router.get("/logout", (req, res) => {
     try {
         req.logout();
-        req.session.destroy();
         res.json({ status: "Successfully" });
     } catch (error) {
         res.status(500).json({ status: "Server error in logging out" });

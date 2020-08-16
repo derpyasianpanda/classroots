@@ -16,15 +16,19 @@ class LandingPage extends React.Component {
                         <p>A grassroots approach to home learning</p>
                         {profile ? <p>Welcome {profile.displayName}</p> :
                         // Needs to be an anchor tag b/c the login directs outside of react
-                        <a href="/api/users/login">Login!</a>}
+                        <a href="/api/users/login"><button>Login with Google</button></a>}
                         <br/>
-                        <Link to="/message">Go to Messages</Link>
-                    </div>
-
-                    <div id="loginsignup">
-                        <button>sign up</button>
-                        <button>log in</button>
-                        <p>Forgot your password? Click <a>here</a></p>
+                        {profile ? <button
+                            onClick={async () => {
+                                await fetch("/api/users/logout",
+                                    { credentials: "include" });
+                                window.location.reload();
+                            }}
+                        >
+                            Logout
+                        </button> : ""}
+                        {profile ? <><br/><Link to="/message">Go to the app!</Link></> :
+                        ""}
                     </div>
                 </section>
 
