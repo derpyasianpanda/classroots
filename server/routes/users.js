@@ -5,7 +5,6 @@ const db = require("../config/firebase");
 
 router.get("/", async (req, res) => {
     const { id } = req.params;
-    console.log(id)
     if (!id) {
         return res.json(req.user);
     }

@@ -67,13 +67,17 @@ class LandingPage extends React.Component {
                         </p>
                     </div>
                 </section>
+                <section className="contentSection" style={{justifyContent: "center"}}>
+                    {!profile ?
+                            <a href="/api/users/login"><button>Login with Google</button></a>
+                        :
+                            <p>Welcome {profile.displayName} <br/>
+                            <Link to="/message">Go to the app!</Link></p>
+                    }
 
-                <section className="contentSection">
-                    <button className="centered">sign up</button>
+                    {profile ? <></> :
+                    ""}
                 </section>
-
-
-
             </div>
         )
     }
