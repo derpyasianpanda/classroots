@@ -10,8 +10,9 @@ import MainNavbar from "./components/MainNavbar";
 
 // Pages
 import LandingPage from "./pages/landingpage/LandingPage";
-import LoginPage from "./pages/loginpage/LoginPage";
+import LoginPage from "./pages/podbrowsepage/PodBrowsePage";
 import PodPage from "./pages/podpage/PodPage";
+import PodBrowsePage from "./pages/podbrowsepage/PodBrowsePage";
 
 function App() {
   return (
@@ -20,10 +21,13 @@ function App() {
         <main>
 
           <Route path="/" exact>
+            <LandingPage />
+          </Route>
+          <Route path="/message">
             <PodPage />
           </Route>
-          <Route path="/login">
-            <LandingPage />
+          <Route path="/browse">
+            <PodBrowsePage />
           </Route>
 
         </main>
