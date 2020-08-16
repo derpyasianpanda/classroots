@@ -31,7 +31,7 @@ app.use(express.static("../client/build"));
 
 // Routes
 app.use("/api/users", require("./routes/users"));
-app.use("/api/share", require("./routes/pods"));
+app.use("/api/pods", require("./routes/pods"));
 
 // Redirects all other requests to main page
 app.get("*", (req, res) => {
