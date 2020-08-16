@@ -1,6 +1,8 @@
 // Dependencies
+const path = require("path");
 const dotenv = require("dotenv");
 const express = require("express");
+const db = require("./config/firebase.js");
 
 const PORT = process.env.PORT || 8000;
 
