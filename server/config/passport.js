@@ -1,5 +1,5 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const db = require("./config/firebase.js");
+const db = require("./firebase.js");
 
 // Configures a given passport to use the Google Strategy
 module.exports = passport => {
@@ -9,7 +9,7 @@ module.exports = passport => {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: "/users/login/callback"
         },
-        (accessToken, refreshToken, profile, callback) => {
+        async (accessToken, refreshToken, profile, callback) => {
             // Implement User creation here
             // profile contains all the information
             const newUser = {
@@ -19,7 +19,7 @@ module.exports = passport => {
                 lastName: profile.name.familyName,
                 image: profile.photos[0].value
             };
-            return callback(null, null);
+            return callback(null, newUser);
         }
     ));
 
@@ -27,6 +27,6 @@ module.exports = passport => {
 
     passport.deserializeUser((id, callback) => {
         // TODO: Find how to query Firebase
-        return callback(null, null);
+        return callback(null, id);
     });
 };
