@@ -9,8 +9,8 @@ router.get("/", async (req, res) => {
         return res.json(req.user);
     }
     try {
-        const snapshot = await db.collection('user')
-            .where('googleID', '==', id)
+        const snapshot = await db.collection("user")
+            .where("googleID", "==", id)
             .get();
         let user = [];
         snapshot.forEach(snap => user.push(snap.data()));
@@ -36,6 +36,7 @@ router.get("/login/callback",
 router.get("/logout", (req, res) => {
     try {
         req.logout();
+        req.session.destroy(() => {});
         res.json({ status: "Successfully" });
     } catch (error) {
         res.status(500).json({ status: "Server error in logging out" });

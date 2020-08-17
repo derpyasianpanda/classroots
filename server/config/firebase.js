@@ -10,6 +10,4 @@ admin.initializeApp({
     databaseURL: "https://classroots-hack20.firebaseio.com"
 });
 
-const db = admin.firestore();
-
-module.exports = db;
+module.exports = admin.firestore();

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const admin = require('firebase-admin');
+const admin = require("firebase-admin");
 const db = require("../config/firebase");
 
 router.post("/", async (req, res) => {
@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
             location: location,
             tags: tags ? tags : []
         }
-        const pod = await db.collection('pod').add(data);
+        const pod = await db.collection("pod").add(data);
         res.json({
             status: "Successfully created Pod",
             id: pod.id
@@ -34,9 +34,9 @@ router.get("/", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        let snapshot = db.collection('pod')
-            .where('grade', '==', grade)
-            .where('location', '==', location)
+        let snapshot = db.collection("pod")
+            .where("grade", "==", grade)
+            .where("location", "==", location)
         snapshot = tags ? snapshot.where("tags", "array-contains", tags) : snapshot;
         snapshot = await snapshot.get();
         if (snapshot.empty) {
@@ -65,7 +65,7 @@ router.post("/users", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const userRef = db.collection('user').doc(user_id);
+        const userRef = db.collection("user").doc(user_id);
         await userRef.update({
             pods: admin.firestore.FieldValue.arrayUnion(pod_id)
         });
@@ -84,8 +84,8 @@ router.get("/users", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const snapshot = await db.collection('user')
-            .where('pods', 'array-contains', pod_id)
+        const snapshot = await db.collection("user")
+            .where("pods", "array-contains", pod_id)
             .get();
         let users = [];
         snapshot.forEach(snap => users.push(snap.data()));
@@ -105,7 +105,7 @@ router.put("/tag", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const podRef = db.collection('pod').doc(pod_id);
+        const podRef = db.collection("pod").doc(pod_id);
         await podRef.update({
             tags: admin.firestore.FieldValue.arrayUnion(tag)
         });
@@ -124,15 +124,15 @@ router.get("/get_pods", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const snapshot = await db.collection('user')
-            .where('user_id', '==', user_id)
+        const snapshot = await db.collection("user")
+            .where("user_id", "==", user_id)
             .get();
         let pod_ids = [];
         snapshot.forEach(snap => pod_ids = snap.data().pods);
         let pods = [];
         pod_ids.forEach(async function(pod_id) {
-            const pod = await db.collection('pod')
-                .where('pod_id', '==', pod_id)
+            const pod = await db.collection("pod")
+                .where("pod_id", "==", pod_id)
                 .get();
             pods.push(pod);
         });
