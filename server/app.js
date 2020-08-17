@@ -6,13 +6,14 @@ const passport = require("passport");
 const session = require("express-session");
 const FirestoreStore = require("firestore-store")(session);
 
+dotenv.config({ path: "./config/config.env" });
+
 const db = require("./config/firebase");
 const configurePassport = require("./config/passport");
 
 const PORT = process.env.PORT || 8000;
 
 // Configuration
-dotenv.config({ path: "./config/config.env" });
 const app = express();
 app.use(
     session({
