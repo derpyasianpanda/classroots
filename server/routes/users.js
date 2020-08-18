@@ -37,7 +37,7 @@ router.get("/logout", (req, res) => {
     try {
         req.logout();
         req.session.destroy(() => {});
-        res.json({ status: "Successfully" });
+        res.json({ status: "Successfully logged out" });
     } catch (error) {
         res.status(500).json({ status: "Server error in logging out" });
     }
