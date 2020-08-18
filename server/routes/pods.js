@@ -118,7 +118,7 @@ router.put("/tag", async (req, res) => {
     }
 });
 
-router.get("/get_pods", async (req, res) => {
+router.get("/users/pods", async (req, res) => {
     let { user_id } = req.query;
     if (!user_id) {
         return res.status(400).json({ status: "Missing query parameters" })

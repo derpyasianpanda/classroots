@@ -20,7 +20,7 @@ app.use(
         store: new FirestoreStore({
             database: db
         }),
-        secret: "test_secret",
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false
     })
