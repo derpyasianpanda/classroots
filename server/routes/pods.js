@@ -79,7 +79,7 @@ router.post("/users", async (req, res) => {
 });
 
 router.get("/users", async (req, res) => {
-    let { pod_id  } = req.query;
+    let { pod_id } = req.query;
     if (!pod_id) {
         return res.status(400).json({ status: "Missing query parameters" })
     }
