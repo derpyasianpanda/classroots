@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
             location: location,
             tags: tags ? tags : []
         }
-        const pod = await db.collection("pod").add(data);
+        const pod = await db.collection("pods").add(data);
         res.json({
             status: "Successfully created Pod",
             id: pod.id
@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        let snapshot = db.collection("pod")
+        let snapshot = db.collection("pods")
             .where("grade", "==", grade)
             .where("location", "==", location)
         snapshot = tags ? snapshot.where("tags", "array-contains", tags) : snapshot;
@@ -65,7 +65,7 @@ router.post("/users", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const userRef = db.collection("user").doc(user_id);
+        const userRef = db.collection("users").doc(user_id);
         await userRef.update({
             pods: admin.firestore.FieldValue.arrayUnion(pod_id)
         });
@@ -84,7 +84,7 @@ router.get("/users", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const snapshot = await db.collection("user")
+        const snapshot = await db.collection("users")
             .where("pods", "array-contains", pod_id)
             .get();
         let users = [];
@@ -105,7 +105,7 @@ router.put("/tag", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const podRef = db.collection("pod").doc(pod_id);
+        const podRef = db.collection("pods").doc(pod_id);
         await podRef.update({
             tags: admin.firestore.FieldValue.arrayUnion(tag)
         });
@@ -124,14 +124,14 @@ router.get("/users/pods", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const snapshot = await db.collection("user")
+        const snapshot = await db.collection("users")
             .where("user_id", "==", user_id)
             .get();
         let pod_ids = [];
         snapshot.forEach(snap => pod_ids = snap.data().pods);
         let pods = [];
         pod_ids.forEach(async function(pod_id) {
-            const pod = await db.collection("pod")
+            const pod = await db.collection("pods")
                 .where("pod_id", "==", pod_id)
                 .get();
             pods.push(pod);

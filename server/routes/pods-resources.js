@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
             contents: content,
             timestamp: Date.now()
         }
-        await db.collection("resource").add(data);
+        await db.collection("resources").add(data);
         res.json({
             status: "Successfully added Resource"
         });
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
         return res.status(400).json({ status: "Missing query parameters" })
     }
     try {
-        const snapshot = await db.collection("resource")
+        const snapshot = await db.collection("resources")
             .where("pod_id", "==", pod_id)
             .get();
         if (snapshot.empty) {
@@ -37,8 +37,7 @@ router.get("/", async (req, res) => {
                 status: "No Resources found",
                 messages: []
             });
-        }
-        else {
+        } else {
             const resources = [];
             snapshot.forEach(snap => resources.push(snap.data()));
             res.json({
