@@ -1,5 +1,7 @@
 // Dependencies
 const path = require("path");
+const http = require("http");
+const socketIO = require("socket.io");
 const dotenv = require("dotenv");
 const express = require("express");
 const passport = require("passport");
@@ -10,11 +12,13 @@ dotenv.config({ path: "./config/config.env" });
 
 const db = require("./config/firebase");
 const configurePassport = require("./config/passport");
-
 const PORT = process.env.PORT || 8000;
 
 // Configuration
 const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+
 app.use(
     session({
         store: new FirestoreStore({
@@ -49,4 +53,4 @@ app.get("*", (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, console.log(`Server running on port ${PORT}`));
+server.listen(PORT, console.log(`Server running on port ${PORT}`));
