@@ -1,8 +1,6 @@
 # Classroots
 An open learning web app for Hack'20 (Hosted by DubHacks)
 
-The site is live at http://classroots.herokuapp.com/
-
 ## Inspiration
 With school campuses reopening for fall and COVID-19 cases still on the rise,
 thousands of parents have begun scrambling to organize home or hybrid-schooling
@@ -19,7 +17,4 @@ to discuss curriculum and education opportunities for their children. They can
 connect through things like shared locations, interests, or educational styles.
 
 ## How We Built it
-We created the front-end with React and the backend with Express, using Firebase to
-handle database transactions.
-
-We also used passportJS for user authentication and authorization
+We created the front-end with React and used Firebase to handle the backend
