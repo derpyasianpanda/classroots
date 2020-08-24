@@ -4,19 +4,19 @@ import React, { useContext, useState, useEffect } from "react";
 
 const Home = () => {
     const { user } = useContext(Context);
-    const [ pods, setPods ] = useState([]);
+    const [ podsInfo, setPodsInfo ] = useState([]);
 
     useEffect(() => {
         const retrievePods = async () => {
-            let userPods = [];
+            let newPodsInfo = [];
             for (let pod of user.pods) {
-                userPods.push(await (await pod.get()).data());
+                newPodsInfo.push(await (await pod.get()).data());
             }
-            setPods(userPods);
+            setPodsInfo(newPodsInfo);
         };
 
-        user ? retrievePods() : setPods([]);
-    }, [ user ])
+        user ? retrievePods() : setPodsInfo([]);
+    }, [ user ]);
 
     return (
         <main>
@@ -37,8 +37,13 @@ const Home = () => {
 
             <h3>Current Pods</h3>
             <ul>
-                {pods && pods.map(pod => {
-                    return <li key={pod.name}>{pod.name}</li>
+                {podsInfo && podsInfo.map(podInfo => {
+                    return (
+                        <li key={podInfo.name}>
+                            <h4>Name: </h4><p>{podInfo.name}</p>
+                            <h5>Description: </h5><p>{podInfo.description}</p>
+                        </li>
+                    );
                 })}
             </ul>
         </main>
