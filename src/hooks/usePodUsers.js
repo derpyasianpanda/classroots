@@ -6,7 +6,7 @@ const usePodUsers = podID => {
 
     useEffect(() => {
         const unsubscribe = firestore.collection("users")
-            .where("pods", "array-contains" , firestore.collection("pods").doc(podID))
+            .where("pods", "array-contains", firestore.collection("pods").doc(podID))
             .onSnapshot(snapshot => {
                 let newUsers = {};
                 console.log("Updating Pod Users");

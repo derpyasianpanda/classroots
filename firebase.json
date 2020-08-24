@@ -18,9 +18,6 @@
     ]
   },
   "emulators": {
-    "firestore": {
-      "port": 8000
-    },
     "hosting": {
       "port": 3000
     },

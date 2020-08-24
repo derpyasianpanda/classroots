@@ -2,12 +2,14 @@ import React from "react"
 import usePodInfo from "../hooks/usePodInfo";
 import usePodUsers from "../hooks/usePodUsers";
 import usePodMessages from "../hooks/usePodMessages";
+import usePodResources from "../hooks/usePodResources";
 
 const Pod = props => {
     const { podID } = props.match.params;
     const podInfo = usePodInfo(podID);
     const podMessages = usePodMessages(podID);
     const podUsers = usePodUsers(podID);
+    const podResources = usePodResources(podID);
 
     return podInfo ? (
         <main>
@@ -26,14 +28,33 @@ const Pod = props => {
             <h6>ID: {podInfo.id}</h6>
             <section>
                 <h1>Messages</h1>
-                {podMessages && Object.keys(podUsers).length > 0?
+                {podMessages.length > 0 && Object.keys(podUsers).length > 0 ?
                 podMessages.map(message =>
-                    <p key={message.id}>
-                        <b>{podUsers[message.user.id].displayName}:</b> {message.content}
+                     <p key={message.id}>
+                        {/* TODO: Find out why usePodUsers sometimes returns only on user when
+                        logged in. Reproducible when going to Pod page from home screen.
+                        Is this due to the fact that logging in takes up some type of
+                        resource for query listening? */}
+                        <b>
+                            {podUsers[message.user.id] ?
+                            podUsers[message.user.id].displayName :
+                            "Loading..."}:
+                        </b> {message.content}
                     </p>
                 )
                 :
                 <p>No Messages</p>}
+            </section>
+            <section>
+                <h1>Resources</h1>
+                {podResources.length > 0 ?
+                podResources.map(resource =>
+                    <p key={resource.id}>
+                        <i>{resource.timeCreated.toDate().toDateString()}:</i> {resource.content}
+                    </p>
+                )
+                :
+                <p>No Resources</p>}
             </section>
         </main>
     ) : <h1>Loading...</h1>;

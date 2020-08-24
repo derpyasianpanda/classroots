@@ -1,6 +1,7 @@
 import { Context } from "../Context";
 import { firebase, fireauth } from "../config/firebase";
 import React, { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const { user } = useContext(Context);
@@ -10,7 +11,7 @@ const Home = () => {
         const retrievePods = async () => {
             let newPodsInfo = [];
             for (let pod of user.pods) {
-                newPodsInfo.push(await (await pod.get()).data());
+                newPodsInfo.push({ id: pod.id, ...await (await pod.get()).data() });
             }
             setPodsInfo(newPodsInfo);
         };
@@ -40,8 +41,10 @@ const Home = () => {
                 {podsInfo && podsInfo.map(podInfo => {
                     return (
                         <li key={podInfo.name}>
-                            <h4>Name: </h4><p>{podInfo.name}</p>
-                            <h5>Description: </h5><p>{podInfo.description}</p>
+                            <Link to={`/pods/${podInfo.id}`}>
+                                <h4>Name: </h4><p>{podInfo.name}</p>
+                                <h5>Description: </h5><p>{podInfo.description}</p>
+                            </Link>
                         </li>
                     );
                 })}
