@@ -1,5 +1,7 @@
 # Classroots
-An open learning web app for Hack'20 (Hosted by DubHacks)
+An open learning web app for Hack'20 (Hosted by DubHacks).
+
+Live at https://classroots-hack20.web.app/ or https://classroots-hack20.firebaseapp.com/
 
 ## Inspiration
 With school campuses reopening for fall and COVID-19 cases still on the rise,
