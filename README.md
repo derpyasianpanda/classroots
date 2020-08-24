@@ -1,7 +1,8 @@
 # Classroots
 > NOTE: We are no longer developing the backend. We will be completely migrating to
 Firebase for our backend and keep on using React for the frontend. Check out the
-refactor-firebase-migration branch for progress
+[refactor-firebase-migration](https://github.com/derpyasianpanda/classroots/tree/refactor-firebase-migration)
+branch for progress
 
 An open learning web app for Hack'20 (Hosted by DubHacks)
 
