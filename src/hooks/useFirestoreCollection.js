@@ -1,24 +1,23 @@
 import { useState, useEffect } from "react";
 import { firestore } from "../config/firebase";
 
-const useFirestoreCollection = collection => {
+const useFirestoreCollection = collectionID => {
     const [ documents, setDocuments ] = useState([]);
 
     useEffect(() => {
-        const unsubscribe = firestore.collection(collection)
+        const unsubscribe = firestore.collection(collectionID)
             .orderBy("createdAt", "desc")
-            .onSnapshot(snap => {
+            .onSnapshot(snapshot => {
                 let newDocuments = [];
-                snap.forEach(document => {
-                    newDocuments.push({id: document.id, ...document.data()});
+                snapshot.forEach(document => {
+                    newDocuments.push({ id: document.id, ...document.data() });
                 });
                 setDocuments(newDocuments);
             });
-
         return unsubscribe;
-    }, [ collection ]);
+    }, [ collectionID ]);
 
-    return { items: documents };
+    return documents;
 };
 
 export default useFirestoreCollection;

@@ -3,8 +3,9 @@ import React from "react";
 import { ContextProvider } from "./Context";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Home from "./components/Home";
 import Err from "./components/Err";
+import Pod from "./components/Pod";
+import Home from "./components/Home";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Router>
                     <Switch>
                         <Route exact path="/" component={Home}/>
+                        <Route exact path="/pods/:podID" component={Pod}/>
                         <Route component={Err}/>
                     </Switch>
                 </Router>

@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 import { firestore } from "../config/firebase";
 
-const usePodMessages = pod => {
+const usePodMessages = podID => {
     const [ messages, setMessages ] = useState([]);
 
     useEffect(() => {
         const unsubscribe = firestore.collection("messages")
-            .where("pod", "==", pod)
-            .orderBy("createdAt", "desc")
-            .onSnapshot(snap => {
+            .where("pod", "==", firestore.collection("pods").doc(podID))
+            .orderBy("timeCreated", "desc")
+            .onSnapshot(snapshot => {
                 let newMessages = [];
-                console.log("getting")
-                snap.forEach(message => {
+                console.log("Updating Pod Messages");
+                snapshot.forEach(message => {
                     newMessages.push({ id: message.id, ...message.data()});
                 });
                 setMessages(newMessages);
             });
-
         return unsubscribe;
-    }, [ pod ]);
+    }, [ podID ]);
 
-    return { messages };
+    return messages;
 };
 
 export default usePodMessages;
