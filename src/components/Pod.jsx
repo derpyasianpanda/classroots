@@ -34,11 +34,13 @@ const Pod = props => {
                         {/* TODO: Find out why usePodUsers sometimes returns only on user when
                         logged in. Reproducible when going to Pod page from home screen.
                         Is this due to the fact that logging in takes up some type of
-                        resource for query listening? */}
+                        resource for query listening?
+                        OR
+                        Find a better way to retrieve usernames */}
                         <b>
                             {podUsers[message.user.id] ?
                             podUsers[message.user.id].displayName :
-                            "Loading..."}:
+                            "Unknown"}:
                         </b> {message.content}
                     </p>
                 )

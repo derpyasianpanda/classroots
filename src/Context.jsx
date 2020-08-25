@@ -36,7 +36,7 @@ const ContextProvider = props => {
         return unsubscribe;
     }, []);
 
-    return <Context.Provider value = {{ user }}>
+    return <Context.Provider value={{user}}>
         {props.children}
     </Context.Provider>;
 };

@@ -11,6 +11,7 @@ const usePodInfo = podID => {
                 console.log("Updating Pod Info");
                 setPodInfo({ id: snapshot.id, ...snapshot.data() });
             });
+
         return unsubscribe;
     }, [ podID ]);
 

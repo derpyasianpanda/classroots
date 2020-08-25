@@ -1,7 +1,7 @@
 import { Context } from "../Context";
+import { Link } from "react-router-dom";
 import { firebase, fireauth } from "../config/firebase";
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 const Home = () => {
     const { user } = useContext(Context);
@@ -21,10 +21,9 @@ const Home = () => {
 
     return (
         <main>
-            <h1>Hello World!</h1>
             {user ?
             <>
-                <h2>Hello {user.displayName}</h2>
+                <h1>Hello {user.displayName}</h1>
                 <button onClick={() => fireauth.signOut()}>Sign Out</button>
             </>
             :
@@ -35,6 +34,11 @@ const Home = () => {
             >
                 Sign In
             </button>}
+
+            <br/>
+            <Link to="/pods">All Pods</Link>
+            <br/>
+            <Link to="/users">All Users</Link>
 
             <h3>Current Pods</h3>
             <ul>

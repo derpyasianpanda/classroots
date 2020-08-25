@@ -16,6 +16,7 @@ const usePodMessages = podID => {
                 });
                 setMessages(newMessages);
             });
+
         return unsubscribe;
     }, [ podID ]);
 

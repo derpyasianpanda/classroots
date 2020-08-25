@@ -16,6 +16,7 @@ const usePodResources = podID => {
                 });
                 setResources(newResources);
             });
+
         return unsubscribe;
     }, [ podID ]);
 

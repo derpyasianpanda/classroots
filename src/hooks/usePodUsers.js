@@ -15,6 +15,7 @@ const usePodUsers = podID => {
                 });
                 setUsers(newUsers);
             });
+
         return unsubscribe;
     }, [ podID ]);
 
