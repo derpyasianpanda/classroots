@@ -1,19 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
-* {
+nav {
+    position: fixed;
+    top: 0;
+    width: 90%;
+    background-color: #FFDAC1;
+    border-radius: 50px;
+    margin: 0.5vh 5%;
+    height: 4vh;
+    transition: background-color 300ms linear;
+    color: #332633;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.home * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-main {
+.home main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
 }
 
-section {
+.home section {
     background-color: #87CA70;
     margin: 5vh;
     border-radius: 10px;
@@ -23,31 +42,31 @@ section {
     text-align: center;
 }
 
-h1 {
+.home h1 {
     font-size: 3rem;
 }
 
-h2 {
+.home h2 {
     font-size: 2.5rem;
 }
 
-p {
+.home p {
     font-size: 1.5rem;
 }
 
-button {
+.home button {
     padding: 10px 50px;
     border-radius: 10px;
 }
 
-.info {
+.home .info {
     display: flex;
     justify-content: center;
     background-color: #9AB6C9;
     color: #332633;
 }
 
-.info div {
+.home .info div {
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -57,7 +76,7 @@ button {
     margin: 0 50px;
 }
 
-#section-title {
+.home #section-title {
     height: 90vh;
     display: flex;
     flex-direction: column;

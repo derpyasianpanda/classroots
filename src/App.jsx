@@ -9,12 +9,14 @@ import Home from "./components/Home";
 import Pods from "./components/Pods";
 import Users from "./components/Users";
 import UserInfo from "./components/UserInfo";
+import Navigation from "./components/Navigation";
 
 function App() {
     return (
         <div className="App">
             <ContextProvider>
                 <Router>
+                    <Navigation/>
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/pods" component={Pods}/>

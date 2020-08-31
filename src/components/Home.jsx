@@ -20,7 +20,7 @@ const Home = () => {
     }, [ user ]);
 
     return (
-        <main>
+        <main className="home">
             <section id="section-title">
                 <img src="resources/classroots-logo.gif" alt="Classroots Logo"/>
                 <h1>A grassroots approach to home learning</h1>
