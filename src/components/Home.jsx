@@ -21,7 +21,7 @@ const Home = () => {
 
     return (
         <main>
-            <section>
+            <section id="section-title">
                 <img src="resources/classroots-logo.gif" alt="Classroots Logo"/>
                 <h1>A grassroots approach to home learning</h1>
             </section>
@@ -40,7 +40,6 @@ const Home = () => {
                 </div>
             </section>
             <section className="info">
-                <img style={{ width: "400px" }} src="resources/pod.png" alt="Pea Pod"/>
                 <div>
                     <h1>What are pods?</h1>
                     <p>
@@ -52,14 +51,13 @@ const Home = () => {
                         parents are readily able to find the right communities.
                     </p>
                 </div>
+                <img style={{ width: "400px" }} src="resources/pod.png" alt="Pea Pod"/>
             </section>
 
             <section>
+                <h1>{user ? `Hello ${user.displayName}` : "Get Started"}</h1>
                 {user ?
-                <>
-                    <h1>Hello {user.displayName}</h1>
-                    <button onClick={() => fireauth.signOut()}>Sign Out</button>
-                </>
+                <button onClick={() => fireauth.signOut()}>Sign Out</button>
                 :
                 <button
                     onClick={() => {
