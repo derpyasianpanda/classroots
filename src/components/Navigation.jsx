@@ -20,7 +20,7 @@ const Navigation = () => {
             <Link to="/pods">Pods</Link>
             <Link to="/users">Users</Link>
             {user ?
-            <Link to="/" onClick={() => fireauth.signOut()}>
+            <Link to="/profile">
                 Hello {user.displayName}
             </Link> :
             <Link to="/"

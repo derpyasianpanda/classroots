@@ -8,6 +8,7 @@ import Pod from "./components/Pod";
 import Home from "./components/Home";
 import Pods from "./components/Pods";
 import Users from "./components/Users";
+import Profile from "./components/Profile";
 import UserInfo from "./components/UserInfo";
 import Navigation from "./components/Navigation";
 
@@ -23,6 +24,7 @@ function App() {
                         <Route exact path="/pods/:podID" component={Pod}/>
                         <Route exact path="/users" component={Users}/>
                         <Route exact path="/users/:userID" component={UserInfo}/>
+                        <Route exact path="/profile" component={Profile}/>
                         <Route component={Err}/>
                     </Switch>
                 </Router>

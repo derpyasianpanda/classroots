@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Oswald", sans-serif;
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -15,71 +22,13 @@ nav {
     align-items: center;
 }
 
-.transparent {
-    background-color: transparent;
-}
-
-.home * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-.home main {
+main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
 }
 
-.home section {
-    background-color: #87CA70;
-    margin: 5vh;
-    border-radius: 10px;
-    color: whitesmoke;
-    padding: 50px;
-    font-family: "Oswald", sans-serif;
-    text-align: center;
-}
-
-.home h1 {
-    font-size: 3rem;
-}
-
-.home h2 {
-    font-size: 2.5rem;
-}
-
-.home p {
-    font-size: 1.5rem;
-}
-
-.home button {
-    padding: 10px 50px;
-    border-radius: 10px;
-}
-
-.home .info {
-    display: flex;
-    justify-content: center;
-    background-color: #9AB6C9;
-    color: #332633;
-}
-
-.home .info div {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 400px;
-    max-width: 750px;
-    margin: 0 50px;
-}
-
-.home #section-title {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.transparent {
+    background-color: transparent;
 }

@@ -1,23 +1,11 @@
 import { Context } from "../Context";
-import { Link } from "react-router-dom";
 import { firebase, fireauth } from "../config/firebase";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
+
+import "./Home.css";
 
 const Home = () => {
     const { user } = useContext(Context);
-    const [ podsInfo, setPodsInfo ] = useState([]);
-
-    useEffect(() => {
-        const retrievePods = async () => {
-            let newPodsInfo = [];
-            for (let pod of user.pods) {
-                newPodsInfo.push({ id: pod.id, ...await (await pod.get()).data() });
-            }
-            setPodsInfo(newPodsInfo);
-        };
-
-        user ? retrievePods() : setPodsInfo([]);
-    }, [ user ]);
 
     return (
         <main className="home">
