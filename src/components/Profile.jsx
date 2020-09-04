@@ -11,8 +11,13 @@ const Profile = () => {
     const page = user => (<>
         <section>
             <h1>Hello {user.displayName}</h1>
-            <img src={user.local.photoURL} alt="Profile Avatar"/>
-            {user.local.photoURL}
+            <img
+                style={{ marginTop: "25px", width: "300px", borderRadius: "100%" }}
+                src={user.local.photoURL}
+                alt="Profile Avatar"
+            />
+            <br/>
+            This is a user page
         </section>
         <section>
             Email: {user.email}
