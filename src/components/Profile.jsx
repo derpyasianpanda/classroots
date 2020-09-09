@@ -1,12 +1,27 @@
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { fireauth } from "../config/firebase";
 
 import "./Profile.css"
 
 const Profile = () => {
     const { user } = useContext(Context);
+    const [ pods, setPods ] = useState([]);
+
+    useEffect(() => {
+        const getUserPods = async user => {
+            if (!user) return;
+            console.log("Refreshing Pods");
+            const userPods = [];
+            for (const pod of user.pods) {
+                userPods.push({id: pod.id, ...(await pod.get()).data()})
+            }
+            setPods(userPods);
+        }
+
+        getUserPods(user);
+    }, [ user ]);
 
     const page = user => (<>
         <section>
@@ -17,7 +32,16 @@ const Profile = () => {
                 alt="Profile Avatar"
             />
             <br/>
-            This is a user page
+        </section>
+        <section>
+            <h1>Your Pods</h1>
+            <ul>
+                {(pods && pods.length > 0) ?
+                pods.map(pod =>
+                    <li key={pod.id}><Link to={`/pods/${pod.id}`}>{pod.name}</Link></li>
+                )
+                : <li>None</li>}
+            </ul>
         </section>
         <section>
             Email: {user.email}
