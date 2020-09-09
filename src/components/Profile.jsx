@@ -38,9 +38,11 @@ const Profile = () => {
             <ul>
                 {(pods && pods.length > 0) ?
                 pods.map(pod =>
-                    <li key={pod.id}><Link to={`/pods/${pod.id}`}>{pod.name}</Link></li>
+                    <li key={pod.id}>
+                        <Link to={`/pods/${pod.id}`}>{pod.name}</Link>
+                    </li>
                 )
-                : <li>None</li>}
+                : <li>You are not in any pods</li>}
             </ul>
         </section>
         <section>
