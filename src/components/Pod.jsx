@@ -1,15 +1,22 @@
-import React from "react"
+import React, { useContext } from "react";
+import { Context } from "../Context.jsx";
 import usePodInfo from "../hooks/usePodInfo";
 import usePodUsers from "../hooks/usePodUsers";
 import usePodMessages from "../hooks/usePodMessages";
 import usePodResources from "../hooks/usePodResources";
+import { firebase, firestore } from "../config/firebase";
 
 const Pod = props => {
     const { podID } = props.match.params;
+    const { user } = useContext(Context);
     const podInfo = usePodInfo(podID);
-    const podMessages = usePodMessages(podID);
     const podUsers = usePodUsers(podID);
+    const podMessages = usePodMessages(podID);
     const podResources = usePodResources(podID);
+
+    const userInPod = user => {
+        return user.pods.filter(pod => pod.id === podID).length === 1;
+    }
 
     return podInfo ? (
         <main>
@@ -58,6 +65,30 @@ const Pod = props => {
                 :
                 <p>No Resources</p>}
             </section>
+            {user && <section>
+                {userInPod(user) ?
+                <button
+                    onClick={async () => await firestore.collection("users")
+                        .doc(user.local.uid).update({
+                            pods: firebase.firestore.FieldValue
+                                .arrayRemove(firestore.collection("pods").doc(podID))
+                        })
+                    }
+                >
+                    Leave Pod
+                </button>
+                :
+                <button
+                    onClick={async () => await firestore.collection("users")
+                      .doc(user.local.uid).update({
+                            pods: firebase.firestore.FieldValue
+                                .arrayUnion(firestore.collection("pods").doc(podID))
+                        })
+                    }
+                >
+                    Join Pod
+                </button>}
+            </section>}
         </main>
     ) : <h1>Loading...</h1>;
 };
