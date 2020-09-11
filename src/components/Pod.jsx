@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../Context.jsx";
 import usePodInfo from "../hooks/usePodInfo";
 import usePodUsers from "../hooks/usePodUsers";
@@ -13,6 +13,20 @@ const Pod = props => {
     const podUsers = usePodUsers(podID);
     const podMessages = usePodMessages(podID);
     const podResources = usePodResources(podID);
+
+    const [ podMessagesUsers, setPodMessagesUsers ] = useState();
+
+    useEffect(() => {
+        const getMessageUsers = async podMessages => {
+            for (const message of podMessages) {
+
+            }
+        };
+
+        podMessages && setPodMessagesUsers(getMessageUsers(podMessages));
+    }, [ podMessages ]);
+
+    console.log(podMessages);
 
     const userInPod = user => {
         return user.pods.filter(pod => pod.id === podID).length === 1;
@@ -80,7 +94,7 @@ const Pod = props => {
                 :
                 <button
                     onClick={async () => await firestore.collection("users")
-                      .doc(user.local.uid).update({
+                        .doc(user.local.uid).update({
                             pods: firebase.firestore.FieldValue
                                 .arrayUnion(firestore.collection("pods").doc(podID))
                         })

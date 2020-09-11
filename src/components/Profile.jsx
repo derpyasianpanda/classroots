@@ -18,7 +18,7 @@ const Profile = () => {
                 userPods.push({id: pod.id, ...(await pod.get()).data()})
             }
             setPods(userPods);
-        }
+        };
 
         getUserPods(user);
     }, [ user ]);
