@@ -9,7 +9,7 @@ const Home = () => {
 
     return (
         <main className="home">
-            <section id="section-title">
+            <section className="title">
                 <img src="resources/classroots-logo.gif" alt="Classroots Logo"/>
                 <h1>A grassroots approach to home learning</h1>
             </section>

@@ -7,7 +7,7 @@ const usePodMessages = podID => {
     useEffect(() => {
         const unsubscribe = firestore.collection("messages")
             .where("pod", "==", firestore.collection("pods").doc(podID))
-            .orderBy("timeCreated", "desc")
+            .orderBy("timeCreated", "asc")
             .onSnapshot(snapshot => {
                 let newMessages = [];
                 console.log("Updating Pod Messages");

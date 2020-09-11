@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../Context.jsx";
 import usePodInfo from "../hooks/usePodInfo";
 import usePodUsers from "../hooks/usePodUsers";
 import usePodMessages from "../hooks/usePodMessages";
 import usePodResources from "../hooks/usePodResources";
 import { firebase, firestore } from "../config/firebase";
+import React, { useContext, useEffect, useState } from "react";
+
+import "./Pod.css";
 
 const Pod = props => {
     const { podID } = props.match.params;
@@ -48,21 +50,13 @@ const Pod = props => {
     }
 
     return podInfo ? (
-        <main>
-            <section>
+        <main className="pod-info">
+            <section className="title">
                 <h1>{podInfo.name}</h1>
-                <h2>{podInfo.description}</h2>
+                <p>{podInfo.description}</p>
                 <h3>Grade Level: {podInfo.grade}</h3>
                 <h3>Subject: {podInfo.subject}</h3>
                 <h3>Location: {podInfo.location}</h3>
-                <h4>Tags:</h4>
-                <ul>
-                    {podInfo.tags.map(tag => <li key={tag}>{tag}</li>)}
-                </ul>
-                <h5>Created on {podInfo.timeCreated.toDate().toString()}</h5>
-                <h6>ID: {podInfo.id}</h6>
-            </section>
-            {user && <section>
                 {userInPod(user) ?
                 <button
                     onClick={async () => await firestore.collection("users")
@@ -85,27 +79,29 @@ const Pod = props => {
                 >
                     Join Pod
                 </button>}
-            </section>}
-            <section>
+            </section>
+            <section className="messages">
                 <h1>Messages</h1>
-                {podMessages.length > 0 ?
-                podMessages.map(message =>
-                     <p key={message.id}>
-                        {/* TODO: Find out why usePodUsers sometimes returns only on user when
-                        logged in. Reproducible when going to Pod page from home screen.
-                        Is this due to the fact that logging in takes up some type of
-                        resource for query listening?
-                        OR
-                        Find a better way to retrieve usernames */}
-                        <b>
-                            {podMessageUsers[message.user.id] ?
-                            podMessageUsers[message.user.id].displayName :
-                            "Unknown"}:
-                        </b> {message.content}
-                    </p>
-                )
-                :
-                <p>No Messages</p>}
+                <ul className="message-box">
+                    {podMessages.length > 0 ?
+                    podMessages.map(message =>
+                         <li key={message.id}>
+                            {/* TODO: Find out why usePodUsers sometimes returns only on user when
+                            logged in. Reproducible when going to Pod page from home screen.
+                            Is this due to the fact that logging in takes up some type of
+                            resource for query listening?
+                            OR
+                            Find a better way to retrieve usernames */}
+                            <b>
+                                {podMessageUsers[message.user.id] ?
+                                podMessageUsers[message.user.id].displayName :
+                                "Unknown"}:
+                            </b> {message.content}
+                        </li>
+                    )
+                    :
+                    <li>No Messages</li>}
+                </ul>
                 {userInPod(user) && <form onSubmit={sendMessage}>
                     <label htmlFor="messageSend">Send a Message: </label>
                     <input type="text"
@@ -114,7 +110,7 @@ const Pod = props => {
                     />
                 </form>}
             </section>
-            <section>
+            <section className="resources">
                 <h1>Resources</h1>
                 {podResources.length > 0 ?
                 podResources.map(resource =>
@@ -125,7 +121,7 @@ const Pod = props => {
                 :
                 <p>No Resources</p>}
             </section>
-            <section>
+            <section className="users">
                 <h1>Users</h1>
                 {Object.keys(podUsers).length > 0 ?
                 Object.keys(podUsers).map(key =>
@@ -133,6 +129,14 @@ const Pod = props => {
                 )
                 :
                 <li>No Users</li>}
+            </section>
+            <section className="info">
+                <h4>Tags:</h4>
+                <ul>
+                    {podInfo.tags.map(tag => <li key={tag}>{tag}</li>)}
+                </ul>
+                <h5>Created on {podInfo.timeCreated.toDate().toString()}</h5>
+                <h6>ID: {podInfo.id}</h6>
             </section>
         </main>
     ) : <h1>Loading...</h1>;

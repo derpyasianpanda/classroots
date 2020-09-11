@@ -1,4 +1,5 @@
-.home section {
+
+.pod-info section {
     background-color: #87CA70;
     margin: 5vh;
     border-radius: 10px;
@@ -7,31 +8,31 @@
     text-align: center;
 }
 
-.home h1 {
+.pod-info h1 {
     font-size: 3rem;
 }
 
-.home h2 {
+.pod-info h2 {
     font-size: 2.5rem;
 }
 
-.home p {
+.pod-info p {
     font-size: 1.5rem;
 }
 
-.home button {
+.pod-info button {
     padding: 10px 50px;
     border-radius: 10px;
 }
 
-.home .info {
+.pod-info .info {
     display: flex;
     justify-content: center;
     background-color: #9AB6C9;
     color: #332633;
 }
 
-.home .info div {
+.pod-info .info div {
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -41,10 +42,19 @@
     margin: 0 50px;
 }
 
-.home .title {
+.pod-info .title {
     height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.pod-info .messages {
+    height: 750px;
+}
+
+.pod-info .message-box {
+    height: 500px;
+    overflow: auto;
 }
