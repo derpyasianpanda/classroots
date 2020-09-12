@@ -1,14 +1,5 @@
 # Classroots
-<<<<<<< HEAD
-An open learning web app for Hack'20 (Hosted by DubHacks).
-=======
-> NOTE: We are no longer developing the backend. We will be completely migrating to
-Firebase for our backend and keep on using React for the frontend. Check out the
-[refactor-firebase-migration](https://github.com/derpyasianpanda/classroots/tree/refactor-firebase-migration)
-branch for progress
-
 An open learning web app for Hack'20 (Hosted by DubHacks)
->>>>>>> 54e14dabb2f0a306d9ae8357711d5b4ed3163138
 
 Live at https://classroots-hack20.web.app/ or https://classroots-hack20.firebaseapp.com/
 
