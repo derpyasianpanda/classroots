@@ -71,7 +71,7 @@ const Pod = props => {
                 <h3>Grade Level: {podInfo.grade}</h3>
                 <h3>Subject: {podInfo.subject}</h3>
                 <h3>Location: {podInfo.location}</h3>
-                {userInPod(user) ?
+                {user && (userInPod(user) ?
                 <button
                     onClick={async () => await firestore.collection("users")
                         .doc(user.local.uid).update({
@@ -92,7 +92,7 @@ const Pod = props => {
                     }
                 >
                     Join Pod
-                </button>}
+                </button>)}
             </section>
             <section className="messages">
                 <h1>Messages</h1>
