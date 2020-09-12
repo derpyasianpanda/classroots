@@ -1,29 +1,16 @@
-
-.pod-info button {
+.users button {
     padding: 10px 50px;
     border-radius: 10px;
 }
 
-.pod-info li > em {
-    font-size: 0.70rem;
-}
-
-.pod-info li {
-    font-size: 1.5rem;
-}
-
-.pod-info li > .user-message {
-    color: #332633;
-}
-
-.pod-info .info {
+.users .info {
     display: flex;
     justify-content: center;
     background-color: #9AB6C9;
     color: #332633;
 }
 
-.pod-info .info div {
+.users .info div {
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -33,19 +20,10 @@
     margin: 0 50px;
 }
 
-.pod-info .title {
-    height: 50vh;
+.users .title {
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.pod-info .messages {
-    max-height: 750px;
-}
-
-.pod-info .message-box {
-    max-height: 500px;
-    overflow: auto;
 }

@@ -4,7 +4,7 @@ import usePodUsers from "../hooks/usePodUsers";
 import usePodMessages from "../hooks/usePodMessages";
 import usePodResources from "../hooks/usePodResources";
 import { firebase, firestore } from "../config/firebase";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 
 import "./Pod.css";
 
@@ -15,6 +15,8 @@ const Pod = props => {
     const podUsers = usePodUsers(podID);
     const podMessages = usePodMessages(podID);
     const podResources = usePodResources(podID);
+
+    const messageBox = useRef();
 
     const [ messageSend, setMessageSend ] = useState("");
     const [ podMessageUsers, setPodMessageUsers ] = useState({});
@@ -32,17 +34,29 @@ const Pod = props => {
         podMessages && getMessageUsers(podMessages);
     }, [ podMessages ]);
 
+    useEffect(() => {
+        if (messageBox.current) messageBox.current.scrollTop = messageBox.current.scrollHeight;
+    }, [ messageBox, messageSend, podMessages ]);
+
+    const getFormattedTime = date => {
+        return `${date.getUTCHours().toString().padStart(2, "0")}:
+            ${date.getUTCMinutes().toString().padStart(2, "0")}
+            on ${date.toDateString()}`;
+    };
+
     const sendMessage = async event => {
         event.preventDefault();
         if (!userInPod(user)) return;
-        await firestore.collection("messages").add({
-            content: messageSend,
-            pod: firestore.collection("pods").doc(podID),
-            timeCreated: firebase.firestore.FieldValue.serverTimestamp(),
-            user: firestore.collection("users").doc(user.local.uid)
-        });
-        setMessageSend("");
-    }
+        if (messageSend.trim().length > 0) {
+            await firestore.collection("messages").add({
+                content: messageSend,
+                pod: firestore.collection("pods").doc(podID),
+                timeCreated: firebase.firestore.FieldValue.serverTimestamp(),
+                user: firestore.collection("users").doc(user.local.uid)
+            });
+            setMessageSend("");
+        }
+    };
 
     const userInPod = user => {
         if (!user) return false;
@@ -82,7 +96,7 @@ const Pod = props => {
             </section>
             <section className="messages">
                 <h1>Messages</h1>
-                <ul className="message-box">
+                <ul className="message-box" ref={messageBox}>
                     {podMessages.length > 0 ?
                     podMessages.map(message =>
                          <li key={message.id}>
@@ -91,12 +105,19 @@ const Pod = props => {
                             Is this due to the fact that logging in takes up some type of
                             resource for query listening?
                             OR
-                            Find a better way to retrieve usernames */}
-                            <b>
+                            Find a better way to retrieve usernames
+                            ALSO
+                            Find out why updated messages don't actually have their dates
+                            immediately */}
+                            <b className={user &&
+                                (message.user.id === user.local.uid ? "user-message" : "")}
+                            >
                                 {podMessageUsers[message.user.id] ?
                                 podMessageUsers[message.user.id].displayName :
                                 "Unknown"}:
                             </b> {message.content}
+                            {message.timeCreated &&
+                            <em> @ {getFormattedTime(message.timeCreated.toDate())}</em>}
                         </li>
                     )
                     :

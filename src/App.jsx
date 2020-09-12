@@ -1,4 +1,3 @@
-import "./App.css";
 import React from "react";
 import { ContextProvider } from "./Context";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -11,6 +10,8 @@ import Users from "./components/Users";
 import Profile from "./components/Profile";
 import UserInfo from "./components/UserInfo";
 import Navigation from "./components/Navigation";
+
+import "./App.css";
 
 function App() {
     return (

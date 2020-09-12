@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import React, { useContext, useState, useEffect } from "react";
 import { fireauth } from "../config/firebase";
 
-import "./Profile.css"
-
 const Profile = () => {
     const { user } = useContext(Context);
     const [ pods, setPods ] = useState([]);
