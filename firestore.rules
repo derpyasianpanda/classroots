@@ -2,26 +2,27 @@ rules_version = "2";
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-    	allow read, write: if false;
+    	allow read, write:
+      	if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.admin;
     }
 
     match /messages/{messageID} {
     	allow read: if true;
-    	allow write:
+    	allow create, update:
       	if /databases/$(database)/documents/users/$(request.auth.uid) ==
         	request.resource.data.user;
     }
 
     match /resources/{resourceID} {
     	allow read: if true;
-    	allow write:
+    	allow create, update:
       	if /databases/$(database)/documents/users/$(request.auth.uid) ==
         	request.resource.data.user;
     }
 
     match /pods/{podID} {
     	allow read: if true;
-    	allow write: if request.auth != null;
+    	allow create, update: if request.auth != null;
     }
 
     match /users/{userID} {
