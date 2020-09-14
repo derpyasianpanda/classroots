@@ -18,6 +18,7 @@ const ContextProvider = props => {
                     displayName: localUserData.displayName,
                     email: localUserData.email,
                     timeCreated: firebase.firestore.FieldValue.serverTimestamp(),
+                    admin: false,
                     pods: [],
                 });
 

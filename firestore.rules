@@ -1,0 +1,43 @@
+rules_version = "2";
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+    	allow read, write: if false;
+    }
+
+    match /messages/{messageID} {
+    	allow read: if true;
+    	allow write:
+      	if /databases/$(database)/documents/users/$(request.auth.uid) ==
+        	request.resource.data.user;
+    }
+
+    match /resources/{resourceID} {
+    	allow read: if true;
+    	allow write:
+      	if /databases/$(database)/documents/users/$(request.auth.uid) ==
+        	request.resource.data.user;
+    }
+
+    match /pods/{podID} {
+    	allow read: if true;
+    	allow write: if request.auth != null;
+    }
+
+    match /users/{userID} {
+    	allow read, create: if true;
+    	allow update:
+      	if request.auth != null &&
+        (
+        	resource.data.admin ||
+          (
+            request.auth.uid == userID &&
+            // Line below ensures that they cannot change admin status
+            resource.data.admin == request.resource.data.admin
+          )
+      	);
+      allow delete:
+      	if request.auth != null && (request.auth.uid == userID || resource.data.admin);
+    }
+  }
+}
