@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useFirestoreCollection from "../hooks/useFirestoreCollection";
 
 import "./Users.css";
@@ -13,8 +14,10 @@ const Users = () => {
                 <ul>
                     {users && users.map(user =>
                         <li key={user.id}>
-                            <p><b>{user.displayName}</b></p>
-                            <p><i>{user.email}</i></p>
+                            <Link to={`/users/${user.id}`}>
+                                <p><b>{user.displayName}</b></p>
+                                <p><i>{user.email}</i></p>
+                            </Link>
                         </li>
                     )}
                 </ul>
