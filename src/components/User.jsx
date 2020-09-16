@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Context } from "../Context";
 import { fireauth } from "../config/firebase";
 import useUserInfo from "../hooks/useUserInfo";
-import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 
 const User = props => {
     const { userID } = props.match.params;
     const user = useUserInfo(userID);
+    const { user: loggedInUser } = useContext(Context);
     const [ pods, setPods ] = useState([]);
 
     useEffect(() => {
@@ -54,7 +56,8 @@ const User = props => {
     </>);
 
     return <main className="profile">
-        {user ? page(user) : <section><h1>Loading...</h1></section>}
+        {loggedInUser && (userID === loggedInUser.local.uid) ? <Redirect to="/users/me"/> :
+        (user ? page(user) : <section><h1>Loading...</h1></section>)}
     </main>
 };
 
