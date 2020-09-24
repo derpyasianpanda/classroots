@@ -1,8 +1,8 @@
 import { Context } from "../Context";
-import { firebase, fireauth } from "../config/firebase";
 import React, { useContext } from "react";
 
 import "./Home.css";
+import AccountButton from "./AccountButton";
 
 const Home = () => {
     const { user } = useContext(Context);
@@ -44,16 +44,7 @@ const Home = () => {
 
             <section>
                 <h1>{user ? `Hello ${user.displayName}` : "Get Started"}</h1>
-                {user ?
-                <button onClick={() => fireauth.signOut()}>Sign Out</button>
-                :
-                <button
-                    onClick={() => {
-                        fireauth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-                    }}
-                >
-                    Sign In
-                </button>}
+                <AccountButton dependents={[ user ]}/>
             </section>
         </main>
     );
