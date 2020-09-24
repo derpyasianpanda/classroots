@@ -55,23 +55,6 @@ const Home = () => {
                     Sign In
                 </button>}
             </section>
-
-            {/* <Link to="/pods">All Pods</Link>
-            <Link to="/users">All Users</Link> */}
-
-            {/* <h3>Current Pods</h3>
-            <ul>
-                {podsInfo && podsInfo.map(podInfo => {
-                    return (
-                        <li key={podInfo.name}>
-                            <Link to={`/pods/${podInfo.id}`}>
-                                <h4>Name: </h4><p>{podInfo.name}</p>
-                                <h5>Description: </h5><p>{podInfo.description}</p>
-                            </Link>
-                        </li>
-                    );
-                })}
-            </ul> */}
         </main>
     );
 };
